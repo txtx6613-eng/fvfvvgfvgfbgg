@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VCC Generator — Test Card Generator</title>
+    <meta name="description" content="Generate test credit card numbers for development and testing purposes. Supports Visa, Mastercard, Amex, Discover, JCB, and more.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <!-- Animated background -->
+    <div class="bg-grid"></div>
+    <div class="bg-glow bg-glow-1"></div>
+    <div class="bg-glow bg-glow-2"></div>
+    <div class="bg-glow bg-glow-3"></div>
+
+    <div class="app-container">
+        <!-- Header -->
+        <header class="app-header" id="app-header">
+            <div class="header-badge">
+                <span class="badge-icon">⚡</span>
+                <span>Test & Development Tool</span>
+            </div>
+            <h1 class="header-title">VCC <span class="gradient-text">Generator</span></h1>
+            <p class="header-subtitle">Generate test credit card numbers with CVV, expiry dates, and PINs for development and testing purposes.</p>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Navigation Tabs -->
+            <div class="tabs" id="tabs">
+                <button class="tab active" data-tab="generate" id="tab-generate">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+                    Generator
+                </button>
+                <button class="tab" data-tab="validate" id="tab-validate">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                    Validator
+                </button>
+            </div>
+
+            <!-- Generate Tab -->
+            <div class="tab-content active" id="panel-generate">
+                <div class="generator-layout">
+                    <!-- Left: Options -->
+                    <div class="options-panel">
+                        <div class="panel glass-panel" id="panel-options">
+                            <h2 class="panel-title">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+                                Configuration
+                            </h2>
+
+                            <!-- Card Network Selection -->
+                            <div class="form-group">
+                                <label class="form-label">Card Network</label>
+                                <div class="network-grid" id="network-grid">
+                                    <button class="network-btn active" data-network="visa" id="btn-visa">
+                                        <span class="network-logo visa-logo">VISA</span>
+                                        <span class="network-name">Visa</span>
+                                    </button>
+                                    <button class="network-btn" data-network="mastercard" id="btn-mastercard">
+                                        <span class="network-logo mc-logo">MC</span>
+                                        <span class="network-name">Mastercard</span>
+                                    </button>
+                                    <button class="network-btn" data-network="amex" id="btn-amex">
+                                        <span class="network-logo amex-logo">AMEX</span>
+                                        <span class="network-name">Amex</span>
+                                    </button>
+                                    <button class="network-btn" data-network="discover" id="btn-discover">
+                                        <span class="network-logo discover-logo">DISC</span>
+                                        <span class="network-name">Discover</span>
+                                    </button>
+                                    <button class="network-btn" data-network="jcb" id="btn-jcb">
+                                        <span class="network-logo jcb-logo">JCB</span>
+                                        <span class="network-name">JCB</span>
+                                    </button>
+                                    <button class="network-btn" data-network="diners" id="btn-diners">
+                                        <span class="network-logo diners-logo">DC</span>
+                                        <span class="network-name">Diners</span>
+                                    </button>
+                                    <button class="network-btn" data-network="unionpay" id="btn-unionpay">
+                                        <span class="network-logo unionpay-logo">UP</span>
+                                        <span class="network-name">UnionPay</span>
+                                    </button>
+                                    <button class="network-btn" data-network="mir" id="btn-mir">
+                                        <span class="network-logo mir-logo">MIR</span>
+                                        <span class="network-name">Mir</span>
+                                    </button>
+                                    <button class="network-btn" data-network="maestro" id="btn-maestro">
+                                        <span class="network-logo maestro-logo">MAE</span>
+                                        <span class="network-name">Maestro</span>
+                                    </button>
+                                    <button class="network-btn" data-network="ebt" id="btn-ebt">
+                                        <span class="network-logo ebt-logo">EBT</span>
+                                        <span class="network-name">EBT</span>
+                                    </button>
+                                    <button class="network-btn" data-network="custom_491212" id="btn-custom">
+                                        <span class="network-logo custom-logo">CSTM</span>
+                                        <span class="network-name">Custom 19</span>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Quantity -->
+                            <div class="form-group">
+                                <label class="form-label" for="input-quantity">Quantity</label>
+                                <div class="quantity-control">
+                                    <button class="qty-btn" id="qty-minus" aria-label="Decrease quantity">−</button>
+                                    <input type="number" id="input-quantity" class="form-input qty-input" value="1" min="1">
+                                    <button class="qty-btn" id="qty-plus" aria-label="Increase quantity">+</button>
+                                </div>
+                                <span class="form-hint">No limit — generate as many as you need</span>
+                            </div>
+
+                            <!-- Custom BIN -->
+                            <div class="form-group">
+                                <label class="form-label" for="input-bin">Custom BIN <span class="optional-tag">optional</span></label>
+                                <input type="text" id="input-bin" class="form-input" placeholder="e.g. 411111" maxlength="10">
+                                <span class="form-hint">First 1-10 digits of the card number</span>
+                            </div>
+
+                            <!-- EBT Options (shown when EBT is selected) -->
+                            <div class="form-group ebt-options" id="ebt-options" style="display: none;">
+                                <label class="form-label">EBT Card Length</label>
+                                <div class="radio-group">
+                                    <label class="radio-label">
+                                        <input type="radio" name="ebt_length" value="16">
+                                        <span class="radio-custom"></span>
+                                        16 digits
+                                    </label>
+                                    <label class="radio-label">
+                                        <input type="radio" name="ebt_length" value="19" checked>
+                                        <span class="radio-custom"></span>
+                                        19 digits
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- PIN Toggle -->
+                            <div class="form-group">
+                                <div class="toggle-row">
+                                    <label class="form-label" for="toggle-pin">Generate PIN</label>
+                                    <label class="toggle" id="toggle-pin-label">
+                                        <input type="checkbox" id="toggle-pin">
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- PIN Length (shown when PIN toggle is on) -->
+                            <div class="form-group pin-options" id="pin-options" style="display: none;">
+                                <label class="form-label">PIN Length</label>
+                                <div class="radio-group">
+                                    <label class="radio-label" id="radio-pin4-label">
+                                        <input type="radio" name="pin_length" value="4" checked id="radio-pin4">
+                                        <span class="radio-custom"></span>
+                                        4 digits
+                                    </label>
+                                    <label class="radio-label" id="radio-pin6-label">
+                                        <input type="radio" name="pin_length" value="6" id="radio-pin6">
+                                        <span class="radio-custom"></span>
+                                        6 digits
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- Generate Button -->
+                            <button class="btn-generate" id="btn-generate">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                                Generate Cards
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Right: Preview & Results -->
+                    <div class="results-panel">
+                        <!-- Card Preview -->
+                        <div class="card-preview-wrapper" id="card-preview-wrapper">
+                            <div class="credit-card" id="credit-card">
+                                <div class="card-front">
+                                    <div class="card-chip">
+                                        <div class="chip-lines">
+                                            <div class="chip-line"></div>
+                                            <div class="chip-line"></div>
+                                            <div class="chip-line"></div>
+                                            <div class="chip-line"></div>
+                                        </div>
+                                    </div>
+                                    <div class="card-contactless">
+                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" opacity="0.6"><path d="M8.5 16.5a5 5 0 0 1 7 0"/><path d="M6 13.5a9 9 0 0 1 12 0"/><path d="M3.5 10.5a13 13 0 0 1 17 0"/></svg>
+                                    </div>
+                                    <div class="card-number" id="preview-number">•••• •••• •••• ••••</div>
+                                    <div class="card-details">
+                                        <div class="card-holder">
+                                            <span class="card-label">CARD HOLDER</span>
+                                            <span class="card-value" id="preview-holder">YOUR NAME</span>
+                                        </div>
+                                        <div class="card-expiry-display">
+                                            <span class="card-label">EXPIRES</span>
+                                            <span class="card-value" id="preview-expiry">MM/YY</span>
+                                        </div>
+                                    </div>
+                                    <div class="card-network-badge" id="preview-network">VISA</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Results -->
+                        <div class="results-container" id="results-container" style="display: none;">
+                            <div class="results-header">
+                                <h2 class="panel-title">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+                                    Generated Cards
+                                    <span class="result-count" id="result-count"></span>
+                                </h2>
+                                <div class="results-actions">
+                                    <button class="btn-action" id="btn-copy-all" title="Copy all to clipboard">
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                                        Copy All
+                                    </button>
+                                    <button class="btn-action" id="btn-export-csv" title="Export as CSV">
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                                        CSV
+                                    </button>
+                                    <button class="btn-action" id="btn-export-json" title="Export as JSON">
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                                        JSON
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="results-list" id="results-list">
+                                <!-- Cards will be inserted here -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Validate Tab -->
+            <div class="tab-content" id="panel-validate">
+                <div class="validator-layout">
+                    <div class="panel glass-panel validator-panel" id="validator-panel">
+                        <h2 class="panel-title">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                            Card Validator
+                        </h2>
+                        <p class="panel-desc">Check if a card number passes Luhn algorithm validation and detect its network.</p>
+
+                        <div class="form-group">
+                            <label class="form-label" for="input-validate">Card Number</label>
+                            <input type="text" id="input-validate" class="form-input form-input-lg" placeholder="Enter card number to validate...">
+                        </div>
+
+                        <button class="btn-generate btn-validate" id="btn-validate">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                            Validate
+                        </button>
+
+                        <!-- Validation Result -->
+                        <div class="validation-result" id="validation-result" style="display: none;">
+                            <div class="validation-icon" id="validation-icon"></div>
+                            <div class="validation-details" id="validation-details"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="app-footer" id="app-footer">
+            <p>⚠️ For testing and educational purposes only. Generated numbers are not real credit cards.</p>
+        </footer>
+    </div>
+
+    <!-- Toast notification -->
+    <div class="toast" id="toast">
+        <span class="toast-icon">✓</span>
+        <span class="toast-message" id="toast-message">Copied to clipboard!</span>
+    </div>
+
+    <script src="/static/app.js"></script>
+</body>
+</html>
